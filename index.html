@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Through Whom Do Local Governments Implement Policy? — KAPA 2026</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -822,11 +822,340 @@ html, body {
 .wip-full .wip-icon { font-size: 36px; opacity: 0.3; }
 .wip-full .wip-text { font-size: 14px; font-style: italic; color: var(--text-4); }
 .wip-full .wip-sub { font-size: 11px; color: var(--text-4); opacity: 0.7; }
+
+
+/* ═══════════════════════════════════════
+   MOBILE RESPONSIVE (max-width: 768px)
+═══════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  html, body {
+    overflow: hidden;
+    height: 100%;
+    height: 100dvh;
+  }
+
+  /* 전체 레이아웃 */
+  .shell {
+    flex-direction: column;
+    height: 100dvh;
+  }
+
+  /* 사이드바 숨김 */
+  .sidebar { display: none; }
+
+  /* 메인 영역이 전체를 차지 */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    overflow: hidden;
+    background: #0d1f30;
+    padding: 0;
+  }
+
+  /* 상단 모바일 헤더 */
+  .mob-header {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    background: #0f2d4a;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 10px 14px;
+    flex-shrink: 0;
+  }
+  .mob-header-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--blue-lt);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .mob-menu-btn {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: rgba(255,255,255,0.7);
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .mob-lang-btns {
+    display: flex;
+    gap: 0;
+  }
+  .mob-lang-btns button {
+    padding: 5px 12px;
+    font-size: 10px;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .mob-lang-btns button:first-child { border-radius: 5px 0 0 5px; border-right: none; }
+  .mob-lang-btns button:last-child  { border-radius: 0 5px 5px 0; }
+  .mob-lang-btns button.on { background: var(--blue-lt); color: #fff; border-color: var(--blue-lt); }
+
+  /* 드로어 메뉴 */
+  .mob-drawer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+  }
+  .mob-drawer.open { display: flex; }
+  .mob-drawer-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+  }
+  .mob-drawer-panel {
+    position: relative;
+    z-index: 1;
+    width: 260px;
+    background: linear-gradient(180deg, #0f2d4a 0%, #0a1e32 100%);
+    overflow-y: auto;
+    height: 100%;
+  }
+  .mob-drawer-close {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    width: 28px; height: 28px;
+    color: rgba(255,255,255,0.7);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-family: inherit;
+  }
+
+  /* 뷰포트 모바일 */
+  .viewport {
+    width: 100%;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 슬라이드 모바일 */
+  .slide {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+    display: none;
+    flex-direction: column;
+    box-shadow: none;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .slide.active { display: flex; }
+
+  /* 슬라이드 헤더 모바일 */
+  .slide-hdr {
+    padding: 12px 16px 11px;
+    min-height: auto;
+    flex-shrink: 0;
+  }
+  .hdr-sec-num { font-size: 22px; }
+  .hdr-title-ko { font-size: 13px; }
+  .hdr-title-en { font-size: 9px; }
+  .hdr-slide-num { font-size: 9px; }
+
+  /* 슬라이드 바디 모바일 */
+  .slide-body {
+    overflow-y: visible;
+    padding: 14px 14px 20px;
+    flex: none;
+  }
+  .two-col, .two-col-wide, .three-col {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* 텍스트 모바일 */
+  .body-p  { font-size: 12px; }
+  .card-body { font-size: 11px; }
+  .callout  { font-size: 11px; }
+  .kv-table td { font-size: 11px; }
+  .kv-table td:first-child { width: 76px; }
+  .data-table { font-size: 10px; }
+  .data-table th { padding: 5px 8px; }
+  .data-table td { padding: 4px 8px; }
+  .stat-num { font-size: 19px; }
+  .stat-label { font-size: 9px; }
+  .hyp-text { font-size: 11px; }
+  .tl-text { font-size: 11px; }
+  .fig-caption { font-size: 9px; }
+  .note-box { font-size: 10px; }
+
+  /* figure 모바일 */
+  .fig-box, .wip-box { height: 180px !important; }
+
+  /* 화살표 모바일 */
+  .nav-arrows { margin-top: 0; padding: 8px 0 10px; }
+  .arrow-btn { width: 40px; height: 40px; font-size: 18px; }
+  .slide-counter { font-size: 12px; }
+
+  /* 커버 모바일 */
+  .cover-body { padding: 28px 20px 0; }
+  .cover-title-ko { font-size: 18px; letter-spacing: -0.3px; }
+  .cover-title-en { font-size: 11px; }
+  .cover-sub-en   { font-size: 9.5px; }
+  .cover-authors  { padding: 10px 20px; flex-wrap: wrap; gap: 6px; }
+  .cover-names    { font-size: 11px; }
+  .cover-affil    { font-size: 9.5px; }
+  .cover-sphere   { width: 220px; height: 220px; right: -40px; top: -60px; }
+  .cover-kapa-pill span { font-size: 9px; }
+  .cover-accent-text { font-size: 9px; }
+
+  /* WIP 모바일 */
+  .wip-full .wip-text { font-size: 13px; }
+  .wip-full .wip-sub  { font-size: 10px; }
+
+  /* 하단 섹션 탭 */
+  .mob-tabs {
+    display: flex !important;
+    background: #0f2d4a;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex-shrink: 0;
+  }
+  .mob-tabs::-webkit-scrollbar { display: none; }
+  .mob-tab {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    border-top: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .mob-tab.active {
+    color: #fff;
+    border-top-color: var(--blue-lt);
+    background: rgba(122,170,208,0.1);
+  }
+}
+
+/* 데스크톱에서 모바일 전용 요소 숨김 */
+.mob-header { display: none; }
+.mob-drawer { display: none; }
+.mob-tabs   { display: none; }
+@media (max-width: 768px) {
+
+  /* 커버 여백 제거 — 내용이 꽉 차게 */
+  #s01 {
+    min-height: 0 !important;
+    height: 100%;
+  }
+  .cover-body {
+    flex: 1 !important;
+    min-height: 0 !important;
+    padding: 22px 20px 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    overflow: hidden !important;
+  }
+  .cover-content {
+    flex-shrink: 0;
+  }
+  /* 커버 구체 크기 조정 */
+  .cover-sphere {
+    width: 200px !important;
+    height: 200px !important;
+    right: -30px !important;
+    top: -50px !important;
+  }
+  .cover-ring { display: none; }
+  .cover-ring2 { display: none; }
+
+  .cover-body { flex: 1; padding: 22px 20px 0; }
+  .cover-content { padding-bottom: 0; }
+  .cover-accent { margin-bottom: 0; }
+  /* 탭바 화살표 위에 */
+  .nav-arrows { padding: 6px 0 6px; }
+  .mob-tabs { order: -1; }  /* 화살표 위로 */
+}
+
 </style>
 </head>
 <body>
 
 <div class="shell">
+
+<!-- ═══════ MOBILE HEADER ═══════ -->
+<div class="mob-header">
+  <div class="mob-header-title">KAPA 2026</div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <div class="mob-lang-btns">
+      <button id="mob-btn-ko" class="on" onclick="setLang('ko')">국문</button>
+      <button id="mob-btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="mob-menu-btn" onclick="openDrawer()">☰ 목차</button>
+  </div>
+</div>
+
+<!-- ═══════ MOBILE DRAWER ═══════ -->
+<div class="mob-drawer" id="mob-drawer">
+  <div class="mob-drawer-bg" onclick="closeDrawer()"></div>
+  <div class="mob-drawer-panel">
+    <button class="mob-drawer-close" onclick="closeDrawer()">✕</button>
+    <div style="padding:20px 16px 10px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue-lt);margin-bottom:4px;">KAPA 2026</div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.35);">포스터 세션 · 보충 자료</div>
+    </div>
+    <div style="height:1px;background:rgba(255,255,255,0.07);"></div>
+    <div style="padding:10px 0 4px;">
+      <div style="font-size:8.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,0.28);padding:0 16px 6px;">Cover</div>
+      <button class="sb-item" data-slide="0" onclick="goTo(0);closeDrawer()"><span class="sb-num">1</span><span class="sb-label">표지</span></button>
+    </div>
+    <div style="padding:10px 0 4px;">
+      <div style="font-size:8.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,0.28);padding:0 16px 6px;">Background</div>
+      <button class="sb-item" data-slide="1" onclick="goTo(1);closeDrawer()"><span class="sb-num">2</span><span class="sb-label">연구 배경</span></button>
+      <button class="sb-item" data-slide="2" onclick="goTo(2);closeDrawer()"><span class="sb-num">3</span><span class="sb-label">이론적 배경</span></button>
+      <button class="sb-item" data-slide="3" onclick="goTo(3);closeDrawer()"><span class="sb-num">4</span><span class="sb-label">제도적 맥락</span></button>
+    </div>
+    <div style="padding:10px 0 4px;">
+      <div style="font-size:8.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,0.28);padding:0 16px 6px;">Research Design</div>
+      <button class="sb-item" data-slide="4" onclick="goTo(4);closeDrawer()"><span class="sb-num">5</span><span class="sb-label">RQ &amp; 가설</span></button>
+      <button class="sb-item" data-slide="5" onclick="goTo(5);closeDrawer()"><span class="sb-num">6</span><span class="sb-label">Data &amp; Methods</span></button>
+      <button class="sb-item" data-slide="6" onclick="goTo(6);closeDrawer()"><span class="sb-num">7</span><span class="sb-label">분류 기준</span></button>
+    </div>
+    <div style="padding:10px 0 4px;">
+      <div style="font-size:8.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,0.28);padding:0 16px 6px;">Results</div>
+      <button class="sb-item" data-slide="7" onclick="goTo(7);closeDrawer()"><span class="sb-num">8</span><span class="sb-label">RQ1 — 파트너 분포</span></button>
+      <button class="sb-item" data-slide="8" onclick="goTo(8);closeDrawer()"><span class="sb-num">9</span><span class="sb-label">RQ2 — 광역·기초 비교</span></button>
+      <button class="sb-item" data-slide="9" onclick="goTo(9);closeDrawer()"><span class="sb-num">10</span><span class="sb-label">RQ3 — 정책분야별</span></button>
+      <button class="sb-item" data-slide="10" onclick="goTo(10);closeDrawer()"><span class="sb-num">11</span><span class="sb-label">평가결과 분포</span></button>
+    </div>
+    <div style="padding:10px 0 14px;">
+      <div style="font-size:8.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,0.28);padding:0 16px 6px;">Conclusion</div>
+      <button class="sb-item" data-slide="11" onclick="goTo(11);closeDrawer()"><span class="sb-num">12</span><span class="sb-label">결론</span></button>
+      <button class="sb-item" data-slide="12" onclick="goTo(12);closeDrawer()"><span class="sb-num">13</span><span class="sb-label">한계</span></button>
+      <button class="sb-item" data-slide="13" onclick="goTo(13);closeDrawer()"><span class="sb-num">14</span><span class="sb-label">후속 연구</span></button>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════ SIDEBAR ═══════════ -->
 <nav class="sidebar" id="sidebar">
@@ -970,8 +1299,9 @@ html, body {
         <span>포스터 세션</span>
       </div>
       <div class="cover-title-ko">지방정부는 누구를 통해 정책을 집행하는가?</div>
+      <div style="font-size:13px;font-weight:400;color:rgba(255,255,255,0.72);line-height:1.4;margin-bottom:8px;letter-spacing:0.1px;">텍스트 기반 분류와 기술통계를 활용한 집행 파트너 구조 분석</div>
       <div class="cover-title-en">Through Whom Do Local Governments Implement Policy?</div>
-      <div class="cover-sub-en">Analyzing Implementation Partner Structures in Local Subsidy Programs</div>
+      <div class="cover-sub-en">Analyzing Implementation Partner Structures in Local Subsidy Programs Using Text-Based Classification and Descriptive Statistics</div>
       <div class="cover-accent">
         <div class="cover-accent-line"></div>
         <div class="cover-accent-text">국문 · English</div>
@@ -1568,6 +1898,24 @@ html, body {
 
   </div><!-- /viewport -->
 
+  <!-- MOBILE TABS -->
+  <div class="mob-tabs" id="mob-tabs">
+    <button class="mob-tab active" onclick="goTo(0)">표지</button>
+    <button class="mob-tab" onclick="goTo(1)">배경</button>
+    <button class="mob-tab" onclick="goTo(2)">이론</button>
+    <button class="mob-tab" onclick="goTo(3)">제도</button>
+    <button class="mob-tab" onclick="goTo(4)">RQ</button>
+    <button class="mob-tab" onclick="goTo(5)">방법</button>
+    <button class="mob-tab" onclick="goTo(6)">분류</button>
+    <button class="mob-tab" onclick="goTo(7)">RQ1</button>
+    <button class="mob-tab" onclick="goTo(8)">RQ2</button>
+    <button class="mob-tab" onclick="goTo(9)">RQ3</button>
+    <button class="mob-tab" onclick="goTo(10)">평가</button>
+    <button class="mob-tab" onclick="goTo(11)">결론</button>
+    <button class="mob-tab" onclick="goTo(12)">한계</button>
+    <button class="mob-tab" onclick="goTo(13)">후속</button>
+  </div>
+
   <!-- ARROWS -->
   <div class="nav-arrows">
     <button class="arrow-btn" id="btn-prev" onclick="prev()" disabled>&#8592;</button>
@@ -1600,12 +1948,34 @@ function goTo(i) {
   counter.textContent = `${cur + 1} / ${TOTAL}`;
   btnPrev.disabled = cur === 0;
   btnNext.disabled = cur === TOTAL - 1;
+  // 모바일 탭 업데이트
+  const mobTabs = document.querySelectorAll('.mob-tab');
+  mobTabs.forEach((t,idx) => t.classList.toggle('active', idx === cur));
+  // 모바일 탭 스크롤
+  if (mobTabs[cur]) mobTabs[cur].scrollIntoView({ inline: 'nearest', block: 'nearest' });
+  // 슬라이드 스크롤 맨 위로
+  const body = slides[cur].querySelector('.slide-body');
+  if (body) body.scrollTop = 0;
+  slides[cur].scrollTop = 0;
+}
+
+function openDrawer() {
+  document.getElementById('mob-drawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  document.getElementById('mob-drawer').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 function setLang(l) {
   lang = l;
   document.getElementById('btn-ko').classList.toggle('on', l === 'ko');
   document.getElementById('btn-en').classList.toggle('on', l === 'en');
+  // 모바일 버튼도 동기화
+  const mbko = document.getElementById('mob-btn-ko');
+  const mben = document.getElementById('mob-btn-en');
+  if (mbko) { mbko.classList.toggle('on', l === 'ko'); mben.classList.toggle('on', l === 'en'); }
 
   // EN 모드: 모든 슬라이드 body를 WIP로 교체 (cover 제외)
   document.querySelectorAll('.slide').forEach((sl, idx) => {
