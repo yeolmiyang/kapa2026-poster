@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Through Whom Do Local Governments Implement Policy? — KAPA 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --navy:     #0f2d4a;
+  --navy-2:   #14486E;
+  --navy-3:   #204C78;
+  --navy-4:   #2F638F;
+  --blue-md:  #3A6C98;
+  --blue-lt:  #7AAAD0;
+  --blue-xl:  #B8D4E8;
+  --ice:      #DAE7F0;
+  --ice-lt:   #EBF2F8;
+  --ice-xlt:  #F4F8FC;
+  --border:   #D0DDE8;
+  --text:     #0f1f2e;
+  --text-2:   #2c4255;
+  --text-3:   #556677;
+  --text-4:   #8899aa;
+  --white:    #ffffff;
+  --sidebar-w: 220px;
+  --slide-w:   960px;
+  --slide-h:   560px;
+}
+
+html, body {
+  height: 100%;
+  background: #0a1628;
+  font-family: 'Inter', 'Noto Sans CJK KR', 'Noto Sans KR', -apple-system, sans-serif;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════
+   SHELL
+═══════════════════════════ */
+.shell {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* ═══════════════════════════
+   SIDEBAR
+═══════════════════════════ */
+.sidebar {
+  width: var(--sidebar-w);
+  background: linear-gradient(180deg, #0f2d4a 0%, #0a1e32 100%);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(255,255,255,0.07);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.12) transparent;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+.sb-logo {
+  padding: 22px 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.sb-logo-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--blue-lt);
+  margin-bottom: 4px;
+}
+.sb-logo-sub {
+  font-size: 9px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.5px;
+}
+
+.sb-section {
+  padding: 14px 0 2px;
+}
+.sb-section-label {
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+  padding: 0 16px 6px;
+}
+.sb-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 16px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  transition: background 0.15s;
+  border-left: 2px solid transparent;
+}
+.sb-item:hover { background: rgba(255,255,255,0.05); }
+.sb-item.active {
+  background: rgba(122,170,208,0.12);
+  border-left-color: var(--blue-lt);
+}
+.sb-num {
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.25);
+  width: 16px;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+.sb-item.active .sb-num { color: var(--blue-lt); }
+.sb-label {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.52);
+  line-height: 1.3;
+}
+.sb-item.active .sb-label { color: rgba(255,255,255,0.88); font-weight: 500; }
+
+/* ═══════════════════════════
+   MAIN AREA
+═══════════════════════════ */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: #0d1f30;
+}
+
+/* ═══════════════════════════
+   SLIDE VIEWPORT
+═══════════════════════════ */
+.viewport {
+  position: relative;
+  width: var(--slide-w);
+  height: var(--slide-h);
+  flex-shrink: 0;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  background: var(--white);
+  border-radius: 8px;
+  overflow: hidden;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.3);
+}
+.slide.active { display: flex; }
+
+/* ═══════════════════════════
+   SLIDE HEADER — with design
+═══════════════════════════ */
+.slide-hdr {
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: linear-gradient(105deg, #0f2d4a 0%, #204C78 55%, #3A6C98 85%, #7AAAD0 100%);
+  padding: 18px 32px 16px;
+  min-height: 72px;
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+/* header SVG network bg */
+.slide-hdr svg.hdr-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* header right sphere */
+.slide-hdr::after {
+  content: '';
+  position: absolute;
+  right: -50px; top: -60px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #4a8cbf 0%, #1a4a7a 50%, #0a2040 100%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.hdr-sec-num {
+  font-size: 32px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.12);
+  line-height: 1;
+  letter-spacing: -1px;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+.hdr-titles {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+}
+.hdr-title-ko {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+}
+.hdr-title-en {
+  font-size: 10px;
+  font-weight: 300;
+  color: rgba(180,215,255,0.62);
+  font-style: italic;
+  margin-top: 2px;
+  letter-spacing: 0.2px;
+}
+.hdr-slide-num {
+  position: relative; z-index: 2;
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+/* ═══════════════════════════
+   SLIDE BODY
+═══════════════════════════ */
+.slide-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px 32px 18px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.slide-body::-webkit-scrollbar { width: 4px; }
+.slide-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.two-col-wide {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 24px;
+  align-items: start;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+/* ═══════════════════════════
+   TAGS
+═══════════════════════════ */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--navy-3);
+  color: #fff;
+  font-size: 8.5px;
+  font-weight: 700;
+  padding: 3px 9px 3.5px;
+  border-radius: 3px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.tag.rq { background: var(--navy-4); }
+.tag.en { background: var(--blue-md); }
+.tag.note { background: #4a7a9b; }
+
+/* ═══════════════════════════
+   TEXT
+═══════════════════════════ */
+.body-p {
+  font-size: 11.5px;
+  line-height: 1.72;
+  color: var(--text-2);
+  margin-bottom: 9px;
+  text-align: justify;
+  word-break: keep-all;
+}
+.body-p.hl { color: var(--navy-3); font-weight: 600; }
+.body-p:last-child { margin-bottom: 0; }
+
+.kv-table { width: 100%; border-collapse: collapse; }
+.kv-table td {
+  font-size: 11px;
+  line-height: 1.58;
+  padding-bottom: 6px;
+  vertical-align: top;
+  text-align: justify;
+  word-break: keep-all;
+  color: var(--text-2);
+}
+.kv-table td:first-child {
+  font-weight: 600;
+  color: var(--navy-3);
+  width: 90px;
+  padding-right: 10px;
+  white-space: nowrap;
+  text-align: left;
+}
+
+/* ═══════════════════════════
+   CARDS (modern)
+═══════════════════════════ */
+.card {
+  background: var(--ice-xlt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+.card:last-child { margin-bottom: 0; }
+.card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--navy-3);
+  margin-bottom: 4px;
+  letter-spacing: 0.1px;
+}
+.card-body {
+  font-size: 11px;
+  line-height: 1.62;
+  color: var(--text-3);
+  text-align: justify;
+  word-break: keep-all;
+}
+
+.callout {
+  border-left: 3px solid var(--navy-4);
+  background: var(--ice-xlt);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--text-2);
+  text-align: justify;
+  word-break: keep-all;
+}
+.callout strong { color: var(--navy-3); }
+
+/* stat boxes */
+.stat-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.stat-box {
+  flex: 1;
+  background: var(--ice-xlt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 10px 10px;
+  text-align: center;
+}
+.stat-num {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy-3);
+  line-height: 1;
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
+.stat-label {
+  font-size: 9.5px;
+  color: var(--text-4);
+  line-height: 1.35;
+  word-break: keep-all;
+}
+
+/* ═══════════════════════════
+   FIGURE
+═══════════════════════════ */
+.fig-box {
+  background: var(--ice-lt);
+  border: 1px solid var(--blue-xl);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.fig-box img {
+  width: 100%; height: 100%;
+  object-fit: contain; display: block;
+}
+.fig-caption {
+  font-size: 9.5px;
+  color: var(--text-4);
+  font-style: italic;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════
+   TABLE
+═══════════════════════════ */
+.data-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 10.5px;
+}
+.data-table th {
+  background: var(--navy-3);
+  color: #fff;
+  font-weight: 600;
+  padding: 6px 10px;
+  text-align: left;
+  letter-spacing: 0.1px;
+}
+.data-table th:first-child { border-radius: 4px 0 0 0; }
+.data-table th:last-child  { border-radius: 0 4px 0 0; }
+.data-table td {
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--ice);
+  line-height: 1.5;
+  vertical-align: top;
+  color: var(--text-2);
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:nth-child(even) td { background: var(--ice-xlt); }
+.data-table td:first-child { font-weight: 600; color: var(--navy-3); white-space: nowrap; }
+
+/* ═══════════════════════════
+   FLOW
+═══════════════════════════ */
+.flow-v {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.flow-node {
+  background: var(--ice-xlt);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--navy-3);
+  line-height: 1.3;
+}
+.flow-node .sub {
+  font-size: 9.5px;
+  font-weight: 400;
+  color: var(--text-4);
+  margin-top: 1px;
+}
+.flow-node.dark {
+  background: var(--navy-3);
+  color: #fff;
+  border-color: var(--navy-3);
+}
+.flow-node.dark .sub { color: rgba(255,255,255,0.55); }
+.flow-arrow {
+  text-align: center;
+  color: var(--blue-lt);
+  font-size: 13px;
+  line-height: 1;
+}
+
+/* ═══════════════════════════
+   TIMELINE
+═══════════════════════════ */
+.timeline {
+  padding-left: 18px;
+  border-left: 2px solid var(--blue-xl);
+}
+.tl-item { margin-bottom: 12px; position: relative; }
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -22px; top: 4px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--navy-3);
+  border: 1.5px solid var(--white);
+  box-shadow: 0 0 0 1.5px var(--blue-lt);
+}
+.tl-year {
+  font-size: 10.5px; font-weight: 700;
+  color: var(--navy-3); margin-bottom: 2px;
+}
+.tl-text {
+  font-size: 10.5px; line-height: 1.58;
+  color: var(--text-3); word-break: keep-all;
+}
+
+/* ═══════════════════════════
+   DIVIDER
+═══════════════════════════ */
+.divider {
+  height: 1px;
+  background: var(--ice);
+  margin: 12px 0;
+}
+
+/* note box */
+.note-box {
+  background: #f8f4e4;
+  border: 1px solid #e0cc88;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 10px;
+  color: #6b5900;
+  line-height: 1.55;
+  margin-top: 8px;
+  word-break: keep-all;
+}
+
+/* hyp card */
+.hyp-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 7px;
+}
+.hyp-label {
+  font-size: 8.5px; font-weight: 700;
+  color: var(--navy-4); letter-spacing: 0.8px;
+  text-transform: uppercase; margin-bottom: 4px;
+}
+.hyp-text {
+  font-size: 10.5px; line-height: 1.6;
+  color: var(--text-3);
+  text-align: justify; word-break: keep-all;
+}
+
+/* lang label */
+.lang-label {
+  font-size: 8.5px; font-weight: 700;
+  color: var(--navy-4); letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 5px;
+}
+
+/* ═══════════════════════════
+   NAVIGATION ARROWS
+═══════════════════════════ */
+.nav-arrows {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 14px;
+}
+.arrow-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.65);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  line-height: 1;
+}
+.arrow-btn:hover {
+  background: rgba(122,170,208,0.2);
+  border-color: var(--blue-lt);
+  color: #fff;
+}
+.arrow-btn:disabled {
+  opacity: 0.2; cursor: default;
+}
+.slide-counter {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.5px;
+  font-variant-numeric: tabular-nums;
+  min-width: 48px;
+  text-align: center;
+}
+
+/* ═══════════════════════════
+   COVER SLIDE — special
+═══════════════════════════ */
+#s01 {
+  background: linear-gradient(125deg, #071520 0%, #0f2d4a 30%, #1a4878 55%, #2d6a9f 80%, #5090c0 100%);
+}
+/* cover doesn't use slide-hdr */
+.cover-body {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 42px 52px 0;
+}
+
+/* cover: bg network */
+.cover-net {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
+}
+/* cover: big sphere */
+.cover-sphere {
+  position: absolute;
+  right: -80px; top: -100px;
+  width: 420px; height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%,
+    #5a9fce 0%, #2a6a9e 30%, #194a7c 58%, #0c2d55 80%, #061828 100%);
+  box-shadow: inset -12px -12px 40px rgba(0,0,0,0.4),
+              inset 6px 6px 20px rgba(80,150,220,0.15);
+  z-index: 0;
+  opacity: 0.88;
+}
+/* cover: mid ring */
+.cover-ring {
+  position: absolute;
+  right: 80px; bottom: -80px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(120,180,240,0.18);
+  z-index: 0;
+}
+/* cover: small ring */
+.cover-ring2 {
+  position: absolute;
+  right: 200px; top: -30px;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  border: 1px solid rgba(120,180,240,0.12);
+  z-index: 0;
+}
+/* mini node cluster top-left */
+.cover-dots {
+  position: absolute;
+  left: 0; top: 0;
+  width: 320px; height: 200px;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.18) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.18;
+  z-index: 0;
+}
+
+.cover-content {
+  position: relative; z-index: 2;
+}
+.cover-kapa-pill {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 20px;
+  padding: 5px 14px;
+  margin-bottom: 24px;
+}
+.cover-kapa-pill span {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.cover-kapa-pill .dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--blue-lt);
+}
+.cover-title-ko {
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  letter-spacing: -0.6px;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+}
+.cover-title-en {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.42;
+  margin-bottom: 5px;
+}
+.cover-sub-en {
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(180,210,255,0.52);
+  font-style: italic;
+  margin-bottom: 28px;
+}
+.cover-accent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0;
+}
+.cover-accent-line {
+  width: 40px; height: 2px;
+  background: linear-gradient(90deg, rgba(122,170,208,0.9), transparent);
+  border-radius: 1px;
+}
+.cover-accent-text {
+  font-size: 10px;
+  color: rgba(255,255,255,0.38);
+  letter-spacing: 0.5px;
+}
+
+.cover-authors {
+  position: relative; z-index: 2;
+  background: rgba(8,18,36,0.45);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 13px 52px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.cover-names {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.88);
+  letter-spacing: 0.1px;
+}
+.cover-sep { color: rgba(255,255,255,0.28); font-size: 12px; }
+.cover-affil {
+  font-size: 10.5px;
+  font-weight: 300;
+  color: rgba(190,220,255,0.6);
+}
+
+/* ═══════════════════════════
+   LANG TOGGLE & WIP
+═══════════════════════════ */
+.lang-bar {
+  display: flex;
+  gap: 0;
+  margin-bottom: 0;
+}
+.lang-bar button {
+  flex: 1;
+  padding: 0;
+  height: 32px;
+  font-size: 11px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 0.3px;
+  transition: background 0.15s, color 0.15s;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.45);
+}
+.lang-bar button.on {
+  background: var(--blue-lt);
+  color: #fff;
+}
+.lang-bar button:first-child { border-radius: 0; }
+.sb-lang {
+  padding: 12px 14px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.sb-lang-label {
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+  margin-bottom: 7px;
+}
+
+.wip-box {
+  background: var(--ice-xlt);
+  border: 1.5px dashed var(--border);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-4);
+  font-size: 12px;
+  font-style: italic;
+  letter-spacing: 0.2px;
+}
+.wip-box .wip-icon {
+  font-size: 22px;
+  opacity: 0.4;
+}
+.wip-full {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-4);
+  padding: 40px;
+  text-align: center;
+}
+.wip-full .wip-icon { font-size: 36px; opacity: 0.3; }
+.wip-full .wip-text { font-size: 14px; font-style: italic; color: var(--text-4); }
+.wip-full .wip-sub { font-size: 11px; color: var(--text-4); opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+<!-- ═══════════ SIDEBAR ═══════════ -->
+<nav class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="sb-logo-title">KAPA 2026</div>
+    <div class="sb-logo-sub">포스터 세션 · 보충 자료</div>
+  </div>
+  <div class="sb-lang">
+    <div class="sb-lang-label">언어 / Language</div>
+    <div class="lang-bar">
+      <button id="btn-ko" class="on" onclick="setLang('ko')">국문</button>
+      <button id="btn-en" onclick="setLang('en')">English</button>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-label">Cover</div>
+    <button class="sb-item active" data-slide="0" onclick="goTo(0)">
+      <span class="sb-num">1</span>
+      <span class="sb-label">표지</span>
+    </button>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-label">Background</div>
+    <button class="sb-item" data-slide="1" onclick="goTo(1)">
+      <span class="sb-num">2</span>
+      <span class="sb-label">연구 배경</span>
+    </button>
+    <button class="sb-item" data-slide="2" onclick="goTo(2)">
+      <span class="sb-num">3</span>
+      <span class="sb-label">이론적 배경</span>
+    </button>
+    <button class="sb-item" data-slide="3" onclick="goTo(3)">
+      <span class="sb-num">4</span>
+      <span class="sb-label">제도적 맥락</span>
+    </button>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-label">Research Design</div>
+    <button class="sb-item" data-slide="4" onclick="goTo(4)">
+      <span class="sb-num">5</span>
+      <span class="sb-label">RQ &amp; 가설</span>
+    </button>
+    <button class="sb-item" data-slide="5" onclick="goTo(5)">
+      <span class="sb-num">6</span>
+      <span class="sb-label">Data &amp; Methods</span>
+    </button>
+    <button class="sb-item" data-slide="6" onclick="goTo(6)">
+      <span class="sb-num">7</span>
+      <span class="sb-label">분류 기준</span>
+    </button>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-label">Results</div>
+    <button class="sb-item" data-slide="7" onclick="goTo(7)">
+      <span class="sb-num">8</span>
+      <span class="sb-label">RQ1 — 파트너 분포</span>
+    </button>
+    <button class="sb-item" data-slide="8" onclick="goTo(8)">
+      <span class="sb-num">9</span>
+      <span class="sb-label">RQ2 — 광역·기초 비교</span>
+    </button>
+    <button class="sb-item" data-slide="9" onclick="goTo(9)">
+      <span class="sb-num">10</span>
+      <span class="sb-label">RQ3 — 정책분야별</span>
+    </button>
+    <button class="sb-item" data-slide="10" onclick="goTo(10)">
+      <span class="sb-num">11</span>
+      <span class="sb-label">평가결과 분포</span>
+    </button>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-label">Conclusion</div>
+    <button class="sb-item" data-slide="11" onclick="goTo(11)">
+      <span class="sb-num">12</span>
+      <span class="sb-label">결론</span>
+    </button>
+    <button class="sb-item" data-slide="12" onclick="goTo(12)">
+      <span class="sb-num">13</span>
+      <span class="sb-label">한계</span>
+    </button>
+    <button class="sb-item" data-slide="13" onclick="goTo(13)">
+      <span class="sb-num">14</span>
+      <span class="sb-label">후속 연구</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════ MAIN ═══════════ -->
+<div class="main">
+  <div class="viewport" id="viewport">
+
+<!-- ════ S01 COVER ════ -->
+<div class="slide active" id="s01">
+  <div class="cover-body">
+    <div class="cover-dots"></div>
+    <div class="cover-sphere"></div>
+    <div class="cover-ring"></div>
+    <div class="cover-ring2"></div>
+    <svg class="cover-net" viewBox="0 0 960 560" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <linearGradient id="eg" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(150,200,255,0.6)"/>
+          <stop offset="100%" stop-color="rgba(150,200,255,0.05)"/>
+        </linearGradient>
+      </defs>
+      <line x1="140" y1="120" x2="290" y2="210" stroke="url(#eg)" stroke-width="1.4"/>
+      <line x1="140" y1="120" x2="80"  y2="240" stroke="rgba(150,200,255,0.32)" stroke-width="1.1"/>
+      <line x1="140" y1="120" x2="210" y2="60"  stroke="rgba(150,200,255,0.28)" stroke-width="1.1"/>
+      <line x1="290" y1="210" x2="420" y2="165" stroke="rgba(130,185,250,0.25)" stroke-width="1"/>
+      <line x1="290" y1="210" x2="320" y2="320" stroke="rgba(130,185,250,0.22)" stroke-width="1"/>
+      <line x1="80"  y1="240" x2="30"  y2="175" stroke="rgba(120,175,240,0.20)" stroke-width="0.9"/>
+      <line x1="80"  y1="240" x2="100" y2="340" stroke="rgba(120,175,240,0.18)" stroke-width="0.9"/>
+      <line x1="210" y1="60"  x2="310" y2="40"  stroke="rgba(130,185,250,0.18)" stroke-width="0.9"/>
+      <line x1="420" y1="165" x2="510" y2="195" stroke="rgba(110,165,235,0.15)" stroke-width="0.8"/>
+      <line x1="320" y1="320" x2="240" y2="380" stroke="rgba(110,165,235,0.14)" stroke-width="0.8"/>
+      <line x1="510" y1="195" x2="560" y2="150" stroke="rgba(100,158,225,0.12)" stroke-width="0.8"/>
+      <circle cx="140" cy="120" r="9"   fill="rgba(190,225,255,0.80)" filter="url(#glow)"/>
+      <circle cx="140" cy="120" r="16"  fill="none" stroke="rgba(170,210,255,0.18)" stroke-width="1.5"/>
+      <circle cx="290" cy="210" r="6.5" fill="rgba(170,210,255,0.70)" filter="url(#glow)"/>
+      <circle cx="80"  cy="240" r="5"   fill="rgba(155,198,250,0.62)" filter="url(#glow)"/>
+      <circle cx="210" cy="60"  r="4.5" fill="rgba(155,198,250,0.58)" filter="url(#glow)"/>
+      <circle cx="420" cy="165" r="4"   fill="rgba(140,188,245,0.52)" filter="url(#glow)"/>
+      <circle cx="320" cy="320" r="3.5" fill="rgba(140,188,245,0.48)"/>
+      <circle cx="30"  cy="175" r="3"   fill="rgba(130,178,240,0.42)"/>
+      <circle cx="100" cy="340" r="2.8" fill="rgba(130,178,240,0.40)"/>
+      <circle cx="310" cy="40"  r="2.5" fill="rgba(120,168,235,0.36)"/>
+      <circle cx="510" cy="195" r="2.2" fill="rgba(120,168,235,0.32)"/>
+      <circle cx="560" cy="150" r="2"   fill="rgba(110,158,225,0.28)"/>
+      <circle cx="240" cy="380" r="2"   fill="rgba(110,158,225,0.26)"/>
+    </svg>
+    <div class="cover-content">
+      <div class="cover-kapa-pill">
+        <span>KAPA 2026</span>
+        <div class="dot"></div>
+        <span>포스터 세션</span>
+      </div>
+      <div class="cover-title-ko">지방정부는 누구를 통해 정책을 집행하는가?</div>
+      <div class="cover-title-en">Through Whom Do Local Governments Implement Policy?</div>
+      <div class="cover-sub-en">Analyzing Implementation Partner Structures in Local Subsidy Programs</div>
+      <div class="cover-accent">
+        <div class="cover-accent-line"></div>
+        <div class="cover-accent-text">국문 · English</div>
+      </div>
+    </div>
+  </div>
+  <div class="cover-authors">
+    <span class="cover-names">한지후 · 김은세 · 김장온 · 김범수</span>
+    <span class="cover-sep">|</span>
+    <span class="cover-affil">University of Nebraska at Omaha · 서울대학교 행정대학원 · 숭실대학교 행정학과</span>
+  </div>
+</div>
+
+<!-- ════ S02 BACKGROUND ════ -->
+<div class="slide" id="s02">
+  <div class="slide-hdr">
+    <svg class="hdr-bg" viewBox="0 0 960 72" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="55" x2="120" y2="30" stroke="rgba(150,200,255,0.25)" stroke-width="0.8"/>
+      <line x1="120" y1="30" x2="240" y2="55" stroke="rgba(150,200,255,0.2)" stroke-width="0.8"/>
+      <line x1="240" y1="55" x2="360" y2="25" stroke="rgba(140,190,250,0.16)" stroke-width="0.8"/>
+      <line x1="120" y1="30" x2="180" y2="10" stroke="rgba(140,190,250,0.15)" stroke-width="0.7"/>
+      <circle cx="120" cy="30" r="3.5" fill="rgba(180,220,255,0.65)"/>
+      <circle cx="240" cy="55" r="2.8" fill="rgba(160,205,255,0.52)"/>
+      <circle cx="180" cy="10" r="2"   fill="rgba(150,195,250,0.42)"/>
+      <circle cx="360" cy="25" r="1.8" fill="rgba(140,185,245,0.35)"/>
+    </svg>
+    <div class="hdr-sec-num">01</div>
+    <div class="hdr-titles">
+      <div class="hdr-title-ko">연구 배경 · 문제 제기</div>
+      <div class="hdr-title-en">Background &amp; Problem</div>
+    </div>
+    <div class="hdr-slide-num">2 / 14</div>
+  </div>
+  <div class="slide-body two-col">
+    <div>
+      <div class="tag">기존 연구의 초점</div>
+      <div class="card">
+        <div class="card-title">① 재정배분 연구</div>
+        <div class="card-body">재정규모 · 지출수준 · 배분 결정요인 · 재정이전 · 지역 간 격차</div>
+      </div>
+      <div class="card">
+        <div class="card-title">② 정부–비영리 관계 / 거버넌스·네트워크</div>
+        <div class="card-body">공공목표가 다양한 외부 행위자를 통해 달성된다는 점을 강조. 협력, 네트워크, 서비스 전달 구조 분석</div>
+      </div>
+      <div class="card">
+        <div class="card-title">③ 지방보조금 연구</div>
+        <div class="card-body">성과평가 · 관리체계 · 책임성 · 재정운영 중심. 집행 파트너 구조 실증분석은 제한적</div>
+      </div>
+      <div class="note-box">
+        <strong>Research Gap</strong> — 지방보조사업 공개자료를 활용해 <em>지방정부–집행 파트너 구조</em>를 분석한 실증연구 부재
+      </div>
+    </div>
+    <div>
+      <div class="tag">본 연구의 초점</div>
+      <div class="callout">지방보조사업은 예산이 편성되는 순간 끝나는 제도가 아니라, <strong>보조사업자를 통해 실제 사업으로 구현되는 정책집행 과정</strong></div>
+      <div class="flow-v" style="margin:10px 0 12px;">
+        <div class="flow-node dark">지방정부<div class="sub">편성·성과평가</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node">집행 파트너<div class="sub">보조사업자 유형</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node">정책분야<div class="sub">사업명 기반 분류</div></div>
+      </div>
+      <div class="callout"><strong>본 연구는</strong> 성과평가 공개자료를 성과관리·예산환류 자료에 그치지 않고, 지방정부–집행 파트너–사업내용 간 연결 구조를 읽는 행정자료로 재해석</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S03 이론적 배경 ════ -->
+<div class="slide" id="s03">
+  <div class="slide-hdr">
+    <svg class="hdr-bg" viewBox="0 0 960 72" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <line x1="50" y1="40" x2="160" y2="18" stroke="rgba(150,200,255,0.25)" stroke-width="0.8"/>
+      <line x1="160" y1="18" x2="280" y2="48" stroke="rgba(140,190,250,0.20)" stroke-width="0.8"/>
+      <line x1="160" y1="18" x2="220" y2="5"  stroke="rgba(130,180,245,0.16)" stroke-width="0.7"/>
+      <line x1="280" y1="48" x2="400" y2="22" stroke="rgba(130,180,245,0.14)" stroke-width="0.7"/>
+      <circle cx="160" cy="18" r="3.5" fill="rgba(180,220,255,0.65)"/>
+      <circle cx="280" cy="48" r="2.8" fill="rgba(160,205,255,0.52)"/>
+      <circle cx="220" cy="5"  r="2"   fill="rgba(150,195,250,0.42)"/>
+      <circle cx="50"  cy="40" r="1.8" fill="rgba(140,185,245,0.36)"/>
+      <circle cx="400" cy="22" r="1.8" fill="rgba(140,185,245,0.32)"/>
+    </svg>
+    <div class="hdr-sec-num">01</div>
+    <div class="hdr-titles">
+      <div class="hdr-title-ko">이론적 배경 · 선행연구</div>
+      <div class="hdr-title-en">Theoretical Framework &amp; Literature</div>
+    </div>
+    <div class="hdr-slide-num">3 / 14</div>
+  </div>
+  <div class="slide-body two-col">
+    <div>
+      <div class="tag">왜 집행 파트너인가?</div>
+      <div class="card">
+        <div class="card-title">① 제3자 정부 관점</div>
+        <div class="card-body">Salamon(1987) — 정부가 직접 생산하지 않고 외부 행위자를 통해 공공목표를 달성하는 구조. 지방보조사업자는 지방정부 정책을 수행하는 외부 집행 주체</div>
+      </div>
+      <div class="card">
+        <div class="card-title">② 거버넌스·네트워크 관점</div>
+        <div class="card-body">Ansell &amp; Gash(2008), Provan &amp; Kenis(2008) 등 — 보조사업자는 단순 수혜자가 아니라 정책집행 과정에 연결된 행위자. 재정지원·사업수행·평가를 통해 집행 네트워크 형성</div>
+      </div>
+      <div class="card">
+        <div class="card-title">③ 성과관리 관점</div>
+        <div class="card-body">집행 파트너 관계는 성과평가와 예산환류라는 제도적 장치를 통해 유지·조정됨. 평가결과는 파트너 우열이 아닌 관계 관리의 지표</div>
+      </div>
+    </div>
+    <div>
+      <div class="tag">선행연구 흐름</div>
+      <table class="data-table" style="margin-bottom:12px;">
+        <thead><tr><th>흐름</th><th>주요 연구 / 키워드</th></tr></thead>
+        <tbody>
+          <tr><td>정부–비영리 관계</td><td>Salamon(1987) — 제3자 정부</td></tr>
+          <tr><td>거버넌스·정책네트워크</td><td>Ansell &amp; Gash(2008), Provan &amp; Kenis(2008), Calò et al.(2024)</td></tr>
+          <tr><td>서비스 전달 네트워크</td><td>Hilvert &amp; Swindell(2013), Mosley &amp; Park(2022)</td></tr>
+          <tr><td>국내 지방보조금</td><td>김소담·강황선(2019), 윤태섭·김성주(2020), 이현정(2025) 등</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><strong>본 연구의 위치:</strong> 지방보조금 연구의 관리·평가 논의 + 거버넌스 연구의 외부 행위자 관점 결합 → 성과평가 공개자료를 집행 파트너 구조 자료로 재해석</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S04 제도적 맥락 ════ -->
+<div class="slide" id="s04">
+  <div class="slide-hdr">
+    <svg class="hdr-bg" viewBox="0 0 960 72" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <line x1="30" y1="50" x2="110" y2="22" stroke="rgba(150,200,255,0.25)" stroke-width="0.8"/>
+      <line x1="110" y1="22" x2="210" y2="45" stroke="rgba(140,190,250,0.20)" stroke-width="0.8"/>
+      <line x1="210" y1="45" x2="330" y2="18" stroke="rgba(130,180,245,0.16)" stroke-width="0.8"/>
+      <line x1="110" y1="22" x2="150" y2="8"  stroke="rgba(130,180,245,0.15)" stroke-width="0.7"/>
+      <circle cx="110" cy="22" r="3.5" fill="rgba(180,220,255,0.65)"/>
+      <circle cx="210" cy="45" r="2.8" fill="rgba(160,205,255,0.52)"/>
+      <circle cx="330" cy="18" r="2.2" fill="rgba(150,195,250,0.42)"/>
+      <circle cx="150" cy="8"  r="1.8" fill="rgba(140,185,245,0.36)"/>
+    </svg>
+    <div class="hdr-sec-num">01</div>
+    <div class="hdr-titles">
+      <div class="hdr-title-ko">제도적 맥락 · 자료 생성 과정</div>
+      <div class="hdr-title-en">Institutional Context &amp; Data Generation</div>
+    </div>
+    <div class="hdr-slide-num">4 / 14</div>
+  </div>
+  <div class="slide-body two-col">
+    <div>
+      <div class="tag">법제도 변화</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2014 — 「지방재정법」 개정</div>
+          <div class="tl-text">지방보조금 성과평가 제도 도입 · 지방보조금관리위원회 제도화 · 사전심의 강화</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2021 — 「지방보조금 관리법」 제정</div>
+          <div class="tl-text">지방보조금 관리체계 독립 법률화 · 운영·평가·환수·제재 근거 마련 · 부정수급 관리 강화</div>
+        </div>
+        <div class="tl-item" style="margin-bottom:0;">
+          <div class="tl-year">2024 — 「지방보조금 관리기준」 개정</div>
+          <div class="tl-text">상대평가 도입 · 유지필요성 평가 강화(3년 주기) · 보탬e 시스템 사후관리 강화</div>
+        </div>
+      </div>
+      <div class="note-box" style="margin-top:10px;">제도는 성과관리·예산환류를 위해 자료를 생성하지만, <strong>본 연구는 이를 정책집행 연결구조를 보여주는 행정자료로 재해석</strong></div>
+    </div>
+    <div>
+      <div class="tag">자료 생성 과정</div>
+      <div class="flow-v">
+        <div class="flow-node"><span style="font-size:9px;color:var(--text-4);">보조사업자</span><br>실적보고 · 보탬e 시스템</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node"><span style="font-size:9px;color:var(--text-4);">지자체</span><br>정산 · 집행내역 · 성과평가</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node">차년도 예산환류</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node dark"><span style="font-size:9px;color:rgba(255,255,255,0.55);">공개자료</span><br>사업명 · 사업자 · 평가결과 공개</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S05 RQ & 가설 ════ -->
+<div class="slide" id="s05">
+  <div class="slide-hdr">
+    <svg class="hdr-bg" viewBox="0 0 960 72" xmlns="http://www.w3.org/2000/svg">
+      <line x1="60" y1="48" x2="180" y2="20" stroke="rgba(150,200,255,0.25)" stroke-width="0.8"/>
+      <line x1="180" y1="20" x2="300" y2="50" stroke="rgba(140,190,250,0.20)" stroke-width="0.8"/>
+      <line x1="180" y1="20" x2="240" y2="6"  stroke="rgba(130,180,245,0.16)" stroke-width="0.7"/>
+      <circle cx="180" cy="20" r="3.5" fill="rgba(180,220,255,0.65)"/>
+      <circle cx="300" cy="50" r="2.5" fill="rgba(160,205,255,0.50)"/>
+      <circle cx="240" cy="6"  r="2"   fill="rgba(150,195,250,0.42)"/>
+    </svg>
+    <div class="hdr-sec-num">02</div>
+    <div class="hdr-titles">
+      <div class="hdr-title-ko">연구 질문 및 가설</div>
+      <div class="hdr-title-en">Research Questions &amp; Hypotheses</div>
+    </div>
+    <div class="hdr-slide-num">5 / 14</div>
+  </div>
+  <div class="slide-body three-col">
+    <div>
+      <div class="tag rq">RQ1</div>
+      <div style="font-size:11.5px;font-weight:700;color:var(--navy-3);margin-bottom:8px;line-height:1.35;">집행 파트너는 어떤 유형으로 구성되어 있으며, 특정 유형에 집중되는가?</div>
+      <div class="hyp-card">
+        <div class="hyp-label">Hypothesis H1</div>
+        <div class="hyp-text">집행 파트너는 다양한 유형으로 구성되지만, 일부 주요 유형의 비중이 상대적으로 높게 나타날 것이다</div>
+      </div>
+      <div class="body-p" style="font-size:10.5px;margin-top:6px;color:var(--text-3);">보조사업자명 기반 상위분류·세부유형 분포 분석으로 확인</div>
+    </div>
+    <div>
+      <div class="tag rq">RQ2</div>
+      <div style="font-size:11.5px;font-weight:700;color:var(--navy-3);margin-bottom:8px;line-height:1.35;">광역과 기초지자체의 집행 파트너 유형 구성은 어떻게 다른가?</div>
+      <div class="hyp-card" style="margin-bottom:6px;">
+        <div class="hyp-label">H2-1</div>
+        <div class="hyp-text">광역지자체는 공공부문 또는 광역 단위 기관 비중이 상대적으로 높을 것이다</div>
+      </div>
+      <div class="hyp-card">
+        <div class="hyp-label">H2-2</div>
+        <div class="hyp-text">기초지자체는 민간단체·시설·협의체 등 지역 단위 조직 비중이 상대적으로 높을 것이다</div>
+      </div>
+    </div>
+    <div>
+      <div class="tag rq">RQ3</div>
+      <div style="font-size:11.5px;font-weight:700;color:var(--navy-3);margin-bottom:8px;line-height:1.35;">정책분야에 따라 집행 파트너 유형 구성은 어떻게 달라지는가?</div>
+      <div class="hyp-card">
+        <div class="hyp-label">Hypothesis H3</div>
+        <div class="hyp-text">정책분야에 따라 주요 집행 파트너 유형의 구성은 다르게 나타날 것이다. 복지·문화·농림·교육 등 사업내용에 따라 필요한 전문성, 현장 접근성, 수행 조직의 성격이 상이하기 때문이다</div>
+      </div>
+      <div class="note-box" style="margin-top:8px;">⚠ 가설은 인과관계가 아닌 기술적 기대/분포 차이 확인</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S06 DATA & METHODS ════ -->
+<div class="slide" id="s06">
+  <div class="slide-hdr">
+    <svg class="hdr-bg" viewBox="0 0 960 72" xmlns="http://www.w3.org/2000/svg">
+      <line x1="40" y1="42" x2="140" y2="18" stroke="rgba(150,200,255,0.25)" stroke-width="0.8"/>
+      <line x1="140" y1="18" x2="260" y2="44" stroke="rgba(140,190,250,0.20)" stroke-width="0.8"/>
+      <line x1="260" y1="44" x2="380" y2="16" stroke="rgba(130,180,245,0.16)" stroke-width="0.8"/>
+      <line x1="140" y1="18" x2="190" y2="6"  stroke="rgba(130,180,245,0.15)" stroke-width="0.7"/>
+      <circle cx="140" cy="18" r="3.5" fill="rgba(180,220,255,0.65)"/>
+      <circle cx="260" cy="44" r="2.8" fill="rgba(160,205,255,0.52)"/>
+      <circle cx="380" cy="16" r="2"   fill="rgba(150,195,250,0.40)"/>
+      <circle cx="190" cy="6"  r="1.8" fill="rgba(140,185,245,0.35)"/>
+    </svg>
+    <div class="hdr-sec-num">03</div>
+    <div class="hdr-titles">
+      <div class="hdr-title-ko">데이터 및 분석 방법</div>
+      <div class="hdr-title-en">Data &amp; Methods</div>
+    </div>
+    <div class="hdr-slide-num">6 / 14</div>
+  </div>
+  <div class="slide-body two-col">
+    <div>
+      <div class="tag">데이터 구축</div>
+      <div class="stat-row">
+        <div class="stat-box"><div class="stat-num">243</div><div class="stat-label">공개자료 파일<br>2023회계연도</div></div>
+        <div class="stat-box"><div class="stat-num">84,498</div><div class="stat-label">최종 분석대상<br>(행)</div></div>
+        <div class="stat-box"><div class="stat-num">243</div><div class="stat-label">지자체<br>광역17+기초226</div></div>
+      </div>
+      <table class="kv-table" style="margin-top:6px;">
+        <tr><td>출처</td><td>2023회계연도 지방보조사업 성과평가 공개자료</td></tr>
+        <tr><td>정제 원자료</td><td>84,512행 × 15열 → 사업명 결측 14행 제외</td></tr>
+        <tr><td>분석 제외</td><td>예산 변수 및 자료 미보관 지자체 5곳 제외 (전남 무안군·여수시·영암군, 제주 본청, 충남 본청)</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="tag">분석 절차</div>
+      <div class="flow-v">
+        <div class="flow-node"><span style="font-size:9px;color:var(--text-4);">①</span> 파트너유형 분류 — 보조사업자명 기반 조작적 분류</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node"><span style="font-size:9px;color:var(--text-4);">②</span> 사업내용분류 — 사업명 텍스트 정제·TF-IDF·규칙 분류</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node"><span style="font-size:9px;color:var(--text-4);">③</span> RQ1 분포 분석 — 상위분류·세부유형 빈도/비중</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node"><span style="font-size:9px;color:var(--text-4);">④</span> RQ2 비교 분석 — 광역/기초별 파트너유형 구성비</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node dark"><span style="font-size:9px;color:rgba(255,255,255,0.55);">⑤</span> RQ3 교차 분석 — 사업내용 × 파트너유형 히트맵</div>
+      </div>
+      <div class="note-box" style="margin-top:8px;">⚠ 파트너유형과 사업내용분류는 공식 행정분류가 아닌 연구용 조작적 분류. 결과는 정책효과·성과·인과관계를 의미하지 않음</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S07 CLASSIFICATION ════ -->
+<div class="slide" id="s07">
+  <div class="slide-hdr">
+    <svg class="hdr-bg" viewBox="0 0 960 72" xmlns="http://www.w3.org/2000/svg">
+      <line x1="70" y1="50" x2="190" y2="22" stroke="rgba(150,200,255,0.25)" stroke-width="0.8"/>
+      <line x1="190" y1="22" x2="310" y2="48" stroke="rgba(140,190,250,0.20)" stroke-width="0.8"/>
+      <line x1="190" y1="22" x2="250" y2="8"  stroke="rgba(130,180,245,0.16)" stroke-width="0.7"/>
+      <circle cx="190" cy="22" r="3.5" fill="rgba(180,220,255,0.65)"/>
+      <circle cx="310" cy="48" r="2.5" fill="rgba(160,205,255,0.50)"/>
+      <circle cx="250" cy="8"  r="2"   fill="rgba(150,195,250,0.40)"/>
+    </svg>
+    <div class="hdr-sec-num">03</div>
+    <div class="hdr-titles">
+      <div class="hdr-title-ko">분류 기준 및 텍스트 분석</div>
+      <div class="hdr-title-en">Classification Methods</div>
+    </div>
+    <div class="hdr-slide-num">7 / 14</div>
+  </div>
+  <div class="slide-body two-col">
+    <div>
+      <div class="tag">파트너유형 분류</div>
+      <table class="kv-table" style="margin-bottom:12px;">
+        <tr><td>입력</td><td>보조사업자명 84,512행</td></tr>
+        <tr><td>기준</td><td>조직명·법적 형태·기관 성격·기능적 단서 기반 연구용 조작적 분류</td></tr>
+        <tr><td>상위분류</td><td>민간 계열 / 공공단체 계열 / 개인 / 기타·불명</td></tr>
+        <tr><td>세부유형</td><td>민간단체·협회·연합회, 지방자치단체, 체육단체, 경제·산업·농어업·운수단체, 사회복지·돌봄기관 등 12개</td></tr>
+      </table>
+      <div class="tag">사업내용분류</div>
+      <table class="kv-table">
+        <tr><td>입력</td><td>사업명·사업내용 텍스트, 교차분석자료 84,498행</td></tr>
+        <tr><td>기준</td><td>보조금통합포털 2023 [사업주제] 18개 분류 참조, 사업명 텍스트 기반 연구용 분류</td></tr>
+        <tr><td>기타·불명</td><td>오류값이 아닌 보수적으로 남긴 분류값 (20,337건, 24.1%)</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="tag">사업내용분류 분포 (상위)</div>
+      <table class="data-table" style="margin-bottom:10px;">
+        <thead><tr><th>사업내용분류</th><th>건수</th><th>비중</th></tr></thead>
+        <tbody>
+          <tr><td>사회복지향상</td><td>17,891</td><td>21.2%</td></tr>
+          <tr><td>문화활동</td><td>15,534</td><td>18.4%</td></tr>
+          <tr><td>1차 산업지원</td><td>8,805</td><td>10.4%</td></tr>
+          <tr><td>행정/통일/외교</td><td>4,564</td><td>5.4%</td></tr>
+          <tr><td>교육 보장</td><td>3,587</td><td>4.2%</td></tr>
+          <tr><td>기타·불명</td><td>20,337</td><td>24.1%</td></tr>
+        </tbody>
+      </table>
+      <div class="note-box">⚠ 분류는 연구용 산출물. 공식 행정분류·정책효과·실제 협력망을 의미하지 않음</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S08 RQ1 ════ -->
+<div class="slide" id="s08">
+  <div class="slide-hdr">
+    <svg class="hdr-bg" viewBox="0 0 960 72" xmlns="http://www.w3.org/2000/svg">
+      <line x1="50" y1="45" x2="160" y2="18" stroke="rgba(150,200,255,0.28)" stroke-width="0.9"/>
+      <line x1="160" y1="18" x2="270" y2="46" stroke="rgba(140,190,250,0.22)" stroke-width="0.9"/>
+      <line x1="160" y1="18" x2="220" y2="5"  stroke="rgba(130,180,245,0.18)" stroke-width="0.8"/>
+      <line x1="270" y1="46" x2="380" y2="20" stroke="rgba(130,180,245,0.15)" stroke-width="0.7"/>
+      <circle cx="160" cy="18" r="4"   fill="rgba(180,220,255,0.70)" filter="url(#glow)"/>
+      <circle cx="270" cy="46" r="3"   fill="rgba(160,205,255,0.55)"/>
+      <circle cx="220" cy="5"  r="2.2" fill="rgba(150,195,250,0.44)"/>
+      <circle cx="380" cy="20" r="1.8" fill="rgba(140,185,245,0.36)"/>
+    </svg>
+    <div class="hdr-sec-num">04</div>
+    <div class="hdr-titles">
+      <div class="hdr-title-ko">RQ1 — 집행 파트너 유형 분포</div>
+      <div class="hdr-title-en">RQ1 — Implementation Partner Distribution</div>
+    </div>
+    <div class="hdr-slide-num">8 / 14</div>
+  </div>
+  <div class="slide-body two-col-wide">
+    <div>
+      <div class="wip-box" style="height:260px;"><div class="wip-icon">📊</div><span>추후 추가될 예정입니다</span></div>
+      <div class="fig-caption">집행 파트너 세부유형 상위 10개 / Top 10 Detailed Partner Types</div>
+    </div>
+    <div>
+      <div class="tag">해석</div>
+      <div class="callout"><strong>민간단체·협회·연합회</strong>가 세부유형 중 가장 큰 집행 파트너 유형(27.5%)으로 나타남</div>
+      <div class="stat-row">
+        <div class="stat-box"><div class="stat-num" style="font-size:20px;">73.9%</div><div class="stat-label">민간 계열<br>(62,441행)</div></div>
+        <div class="stat-box"><div class="stat-num" style="font-size:20px;">14.5%</div><div class="stat-label">공공단체<br>계열</div></div>
+      </div>
+      <div class="body-p">상위 5개: 민간단체·협회·연합회 27.5%, 지방자치단체 10.6%, 체육단체 10.3%, 경제·산업·농어업·운수단체 10.3%, 사회복지·돌봄기관 9.3%</div>
+      <div class="divider"></div>
+      <div class="wip-box" style="height:80px;"><div class="wip-icon" style="font-size:16px;">🔧</div><span>준비 중입니다</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S09 RQ2 ════ -->
+<div class="slide" id="s09">
+  <div class="slide-hdr">
+    <svg class="hdr-bg" viewBox="0 0 960 72" xmlns="http://www.w3.org/2000/svg">
+      <line x1="30" y1="48" x2="140" y2="20" stroke="rgba(150,200,255,0.28)" stroke-width="0.9"/>
+      <line x1="140" y1="20" x2="250" y2="48" stroke="rgba(140,190,250,0.22)" stroke-width="0.9"/>
+      <line x1="250" y1="48" x2="370" y2="18" stroke="rgba(130,180,245,0.18)" stroke-width="0.8"/>
+      <line x1="140" y1="20" x2="195" y2="6"  stroke="rgba(130,180,245,0.16)" stroke-width="0.7"/>
+      <circle cx="140" cy="20" r="4"   fill="rgba(180,220,255,0.70)"/>
+      <circle cx="250" cy="48" r="3"   fill="rgba(160,205,255,0.55)"/>
+      <circle cx="370" cy="18" r="2.2" fill="rgba(150,195,250,0.42)"/>
+      <circle cx="195" cy="6"  r="1.8" fill="rgba(140,185,245,0.36)"/>
+    </svg>
+    <div class="hdr-sec-num">04</div>
+    <div class="hdr-titles">
+      <div class="hdr-title-ko">RQ2 — 광역·기초 집행 파트너 구성 비교</div>
+      <div class="hdr-title-en">RQ2 — Metropolitan vs. Municipal Partner Composition</div>
+    </div>
+    <div class="hdr-slide-num">9 / 14</div>
+  </div>
+  <div class="slide-body two-col-wide">
+    <div>
+      <div class="wip-box" style="height:295px;"><div class="wip-icon">📊</div><span>추후 추가될 예정입니다</span></div>
+      <div class="fig-caption">상위계열·세부유형 구성 / Broad Sectors &amp; Detailed Types by Tier</div>
+    </div>
+    <div>
+      <div class="tag">해석</div>
+      <div class="card" style="margin-bottom:7px;">
+        <div class="card-title">광역 Metropolitan/Provincial</div>
+        <div class="card-body">공공단체 계열 <strong>55.9%</strong>, 민간 계열 39.4%. 세부유형: 지방자치단체 <strong>53.8%</strong> 중심</div>
+      </div>
+      <div class="card" style="margin-bottom:10px;">
+        <div class="card-title">기초 Municipal</div>
+        <div class="card-body">민간 계열 <strong>82.2%</strong>, 공공단체 계열 4.5%. 세부유형: 민간단체·협회·연합회 29.5%, 체육단체 12.1%, 사회복지·돌봄기관 10.1% 등 지역 기반 주체 분산</div>
+      </div>
+      <div class="wip-box" style="height:70px;margin-top:6px;"><div class="wip-icon" style="font-size:16px;">🔧</div><span>준비 중입니다</span></div>
+      <div class="note-box">⚠ Within-tier 구성비 비교. 인과효과·성과 차이를 추정하지 않음</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S10 RQ3 ════ -->
+<div class="slide" id="s10">
+  <div class="slide-hdr">
+    <svg class="hdr-bg" viewBox="0 0 960 72" xmlns="http://www.w3.org/2000/svg">
+      <line x1="55" y1="46" x2="175" y2="18" stroke="rgba(150,200,255,0.28)" stroke-width="0.9"/>
+      <line x1="175" y1="18" x2="295" y2="46" stroke="rgba(140,190,250,0.22)" stroke-width="0.9"/>
+      <line x1="175" y1="18" x2="235" y2="5"  stroke="rgba(130,180,245,0.18)" stroke-width="0.7"/>
+      <circle cx="175" cy="18" r="4"   fill="rgba(180,220,255,0.70)"/>
+      <circle cx="295" cy="46" r="2.8" fill="rgba(160,205,255,0.52)"/>
+      <circle cx="235" cy="5"  r="2"   fill="rgba(150,195,250,0.40)"/>
+    </svg>
+    <div class="hdr-sec-num">04</div>
+    <div class="hdr-titles">
+      <div class="hdr-title-ko">RQ3 — 사업내용분류별 파트너 구성</div>
+      <div class="hdr-title-en">RQ3 — Partner Composition by Policy Area</div>
+    </div>
+    <div class="hdr-slide-num">10 / 14</div>
+  </div>
+  <div class="slide-body two-col">
+    <div>
+      <div class="wip-box" style="height:330px;"><div class="wip-icon">📊</div><span>추후 추가될 예정입니다</span></div>
+      <div class="fig-caption">사업내용분류 × 파트너 상위계열 히트맵 / Content × Partner Sector Heatmap</div>
+    </div>
+    <div>
+      <div class="tag">민간 계열 집중</div>
+      <table class="data-table" style="margin-bottom:10px;">
+        <thead><tr><th>사업내용분류</th><th>민간 계열</th></tr></thead>
+        <tbody>
+          <tr><td>보훈향상</td><td>97.2%</td></tr>
+          <tr><td>행정/통일/외교</td><td>95.1%</td></tr>
+          <tr><td>문화활동</td><td>89.3%</td></tr>
+          <tr><td>관광/휴양활동</td><td>77.6%</td></tr>
+        </tbody>
+      </table>
+      <div class="tag" style="margin-top:4px;">공공단체 계열 비중 높음</div>
+      <table class="data-table" style="margin-bottom:10px;margin-top:6px;">
+        <thead><tr><th>사업내용분류</th><th>공공단체 계열</th></tr></thead>
+        <tbody>
+          <tr><td>국토개발지원</td><td>44.6%</td></tr>
+          <tr><td>보건/의료</td><td>34.9%</td></tr>
+          <tr><td>교통/물류진흥</td><td>24.5%</td></tr>
+        </tbody>
+      </table>
+      <div class="note-box">⚠ 히트맵은 집계 연결 구조. 실제 조직 간 협력망이 아님</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S11 평가결과 ════ -->
+<div class="slide" id="s11">
+  <div class="slide-hdr">
+    <svg class="hdr-bg" viewBox="0 0 960 72" xmlns="http://www.w3.org/2000/svg">
+      <line x1="45" y1="44" x2="155" y2="16" stroke="rgba(150,200,255,0.25)" stroke-width="0.8"/>
+      <line x1="155" y1="16" x2="265" y2="44" stroke="rgba(140,190,250,0.20)" stroke-width="0.8"/>
+      <circle cx="155" cy="16" r="3.5" fill="rgba(180,220,255,0.65)"/>
+      <circle cx="265" cy="44" r="2.5" fill="rgba(160,205,255,0.50)"/>
+    </svg>
+    <div class="hdr-sec-num">04</div>
+    <div class="hdr-titles">
+      <div class="hdr-title-ko">평가결과 분포 (보조 결과)</div>
+      <div class="hdr-title-en">Evaluation Result Distribution (Supplementary)</div>
+    </div>
+    <div class="hdr-slide-num">11 / 14</div>
+  </div>
+  <div class="slide-body two-col">
+    <div>
+      <div class="tag">성과평가 요약 (38,954건)</div>
+      <div class="stat-row" style="flex-wrap:wrap;">
+        <div class="stat-box"><div class="stat-num" style="font-size:17px;">46.4%</div><div class="stat-label">보통 Moderate</div></div>
+        <div class="stat-box"><div class="stat-num" style="font-size:17px;">22.8%</div><div class="stat-label">우수 Excellent</div></div>
+        <div class="stat-box"><div class="stat-num" style="font-size:17px;">15.4%</div><div class="stat-label">매우우수</div></div>
+      </div>
+      <div class="body-p" style="margin-top:6px;">사업내용분류별 긍정평가율(우수+매우우수): 주거안정 59.8%, 관광/휴양활동 44.7%, 국토개발지원 42.1%, 교통/물류진흥 41.7%, 안전 보장 41.3%</div>
+    </div>
+    <div>
+      <div class="tag">유지필요성평가 요약 (16,543건)</div>
+      <div class="stat-row" style="flex-wrap:wrap;">
+        <div class="stat-box"><div class="stat-num" style="font-size:17px;">48.6%</div><div class="stat-label">보통 Moderate</div></div>
+        <div class="stat-box"><div class="stat-num" style="font-size:17px;">23.9%</div><div class="stat-label">우수 Excellent</div></div>
+        <div class="stat-box"><div class="stat-num" style="font-size:17px;">13.4%</div><div class="stat-label">매우우수</div></div>
+      </div>
+      <div class="body-p" style="margin-top:6px;">주거안정 긍정평가율 66.3%, 종교활동 51.4%, 방송/통신진흥 50.0%, 과학기술진흥 48.0%</div>
+      <div class="note-box">⚠ 성과우열 판단이 아닌 등급 분포 구조 확인용 보조자료. 분석범위: 주분석_포함 &amp;&amp; 정상 기준 58,455행</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S12 결론 ════ -->
+<div class="slide" id="s12">
+  <div class="slide-hdr">
+    <svg class="hdr-bg" viewBox="0 0 960 72" xmlns="http://www.w3.org/2000/svg">
+      <line x1="60" y1="50" x2="180" y2="20" stroke="rgba(150,200,255,0.28)" stroke-width="0.9"/>
+      <line x1="180" y1="20" x2="300" y2="48" stroke="rgba(140,190,250,0.22)" stroke-width="0.9"/>
+      <line x1="180" y1="20" x2="240" y2="6"  stroke="rgba(130,180,245,0.18)" stroke-width="0.7"/>
+      <circle cx="180" cy="20" r="4"   fill="rgba(180,220,255,0.70)"/>
+      <circle cx="300" cy="48" r="2.8" fill="rgba(160,205,255,0.52)"/>
+      <circle cx="240" cy="6"  r="2"   fill="rgba(150,195,250,0.40)"/>
+    </svg>
+    <div class="hdr-sec-num">05</div>
+    <div class="hdr-titles">
+      <div class="hdr-title-ko">결론 · 연구 결과 요약</div>
+      <div class="hdr-title-en">Conclusion &amp; Research Findings</div>
+    </div>
+    <div class="hdr-slide-num">12 / 14</div>
+  </div>
+  <div class="slide-body two-col">
+    <div>
+      <div class="tag">국문 요약</div>
+      <div class="card" style="margin-bottom:7px;">
+        <div class="card-title">분석결과 요약</div>
+        <div class="card-body">본 연구는 지방보조사업을 "얼마를 배분했는가"가 아니라 "누구를 통해 집행했는가"라는 관점에서 재구성한다. 민간 계열 파트너가 73.9%로 최대 비중을 차지했고, 세부유형에서는 민간단체·협회·연합회(27.5%)가 두드러졌다. 광역·기초 행정수준과 사업내용분류에 따라 집행 파트너 구성이 상이하게 나타났다</div>
+      </div>
+      <div class="card">
+        <div class="card-title">본 연구의 기여</div>
+        <div class="card-body">성과평가 공개자료를 예산·평가 등급 중심이 아니라 집행 파트너 구조의 관점에서 재구성하였다. 적절한 정제와 분류 절차를 거치면 지방정부의 정책집행 방식을 탐색하는 자료로 활용될 수 있다</div>
+      </div>
+    </div>
+    <div>
+      <div class="wip-box" style="height:100%;min-height:200px;"><div class="wip-icon">🔧</div><span>준비 중입니다</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S13 한계 ════ -->
+<div class="slide" id="s13">
+  <div class="slide-hdr">
+    <svg class="hdr-bg" viewBox="0 0 960 72" xmlns="http://www.w3.org/2000/svg">
+      <line x1="40" y1="46" x2="150" y2="18" stroke="rgba(150,200,255,0.25)" stroke-width="0.8"/>
+      <line x1="150" y1="18" x2="260" y2="46" stroke="rgba(140,190,250,0.20)" stroke-width="0.8"/>
+      <circle cx="150" cy="18" r="3.5" fill="rgba(180,220,255,0.65)"/>
+      <circle cx="260" cy="46" r="2.5" fill="rgba(160,205,255,0.50)"/>
+    </svg>
+    <div class="hdr-sec-num">05</div>
+    <div class="hdr-titles">
+      <div class="hdr-title-ko">한계</div>
+      <div class="hdr-title-en">Limitations</div>
+    </div>
+    <div class="hdr-slide-num">13 / 14</div>
+  </div>
+  <div class="slide-body two-col">
+    <div>
+      <div class="tag">국문</div>
+      <div class="body-p">본 분석은 공개자료 기반 기술통계 분석이므로 전체 모집단을 완전히 대표한다고 보기에 한계가 있다. 전남 무안군·여수시·영암군, 제주 본청, 충남 본청은 자료 미보관 또는 부존재로 제외되었다.</div>
+      <div class="body-p">예산 변수(사업비합계·보조금·자부담)는 지자체별 명칭·구성·결측·단위·입력 방식이 비표준화되어 분석에서 제외하였다.</div>
+      <div class="body-p">파트너유형과 사업내용분류는 보조사업자명·사업명 텍스트 기반 연구용 조작적 분류이므로 기관의 실제 성격·정책내용을 완전히 포착하지 않는다. 단년도 분포 분석으로 인과관계·성과효과·실제 협력망 추정으로 해석해선 안 된다.</div>
+    </div>
+    <div>
+      <div class="wip-box" style="height:100%;min-height:200px;"><div class="wip-icon">🔧</div><span>준비 중입니다</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S14 후속 연구 ════ -->
+<div class="slide" id="s14">
+  <div class="slide-hdr">
+    <svg class="hdr-bg" viewBox="0 0 960 72" xmlns="http://www.w3.org/2000/svg">
+      <line x1="50" y1="44" x2="170" y2="16" stroke="rgba(150,200,255,0.28)" stroke-width="0.9"/>
+      <line x1="170" y1="16" x2="290" y2="44" stroke="rgba(140,190,250,0.22)" stroke-width="0.9"/>
+      <line x1="170" y1="16" x2="230" y2="4"  stroke="rgba(130,180,245,0.18)" stroke-width="0.7"/>
+      <circle cx="170" cy="16" r="4"   fill="rgba(180,220,255,0.70)"/>
+      <circle cx="290" cy="44" r="2.8" fill="rgba(160,205,255,0.52)"/>
+      <circle cx="230" cy="4"  r="2"   fill="rgba(150,195,250,0.40)"/>
+    </svg>
+    <div class="hdr-sec-num">05</div>
+    <div class="hdr-titles">
+      <div class="hdr-title-ko">자료 표준화 함의 · 후속 연구 방향</div>
+      <div class="hdr-title-en">Implications &amp; Future Research</div>
+    </div>
+    <div class="hdr-slide-num">14 / 14</div>
+  </div>
+  <div class="slide-body two-col">
+    <div>
+      <div class="tag">자료 표준화 함의</div>
+      <div class="body-p">지방보조사업 성과평가 공개자료는 정책집행 구조 분석의 기반이 될 수 있지만, 지자체별 공개 형식과 표기 방식의 차이는 비교 가능성을 제한한다.</div>
+      <div class="callout">보조사업자명, 기관유형, 사업내용, 평가종류, 평가결과뿐 아니라 <strong>사업비·보조금 등 금액 관련 필수 열도 표준화</strong>될 때 성과관리와 정책집행 분석의 활용 가능성이 커질 것이다</div>
+      <div class="tag" style="margin-top:10px;">후속 연구 방향</div>
+      <div class="body-p" style="margin-top:6px;">표준화된 기관유형 변수, 다년도 사업 단위 패널, 평가결과 자료를 결합해 집행 파트너 구조의 지속성과 변화, 그리고 성과관리 정보와의 관계를 검토할 필요가 있다</div>
+    </div>
+    <div>
+      <div class="wip-box" style="height:100%;min-height:200px;"><div class="wip-icon">🔧</div><span>준비 중입니다</span></div>
+    </div>
+  </div>
+</div>
+
+  </div><!-- /viewport -->
+
+  <!-- ARROWS -->
+  <div class="nav-arrows">
+    <button class="arrow-btn" id="btn-prev" onclick="prev()" disabled>&#8592;</button>
+    <span class="slide-counter" id="counter">1 / 14</span>
+    <button class="arrow-btn" id="btn-next" onclick="next()">&#8594;</button>
+  </div>
+</div><!-- /main -->
+
+</div><!-- /shell -->
+
+<script>
+const TOTAL = 14;
+let cur = 0;
+let lang = 'ko';
+
+const slides = document.querySelectorAll('.slide');
+const sbItems = document.querySelectorAll('.sb-item');
+const counter = document.getElementById('counter');
+const btnPrev = document.getElementById('btn-prev');
+const btnNext = document.getElementById('btn-next');
+
+function goTo(i) {
+  if (i < 0 || i >= TOTAL) return;
+  slides[cur].classList.remove('active');
+  sbItems[cur].classList.remove('active');
+  cur = i;
+  slides[cur].classList.add('active');
+  sbItems[cur].classList.add('active');
+  sbItems[cur].scrollIntoView({ block: 'nearest' });
+  counter.textContent = `${cur + 1} / ${TOTAL}`;
+  btnPrev.disabled = cur === 0;
+  btnNext.disabled = cur === TOTAL - 1;
+}
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('btn-ko').classList.toggle('on', l === 'ko');
+  document.getElementById('btn-en').classList.toggle('on', l === 'en');
+
+  // EN 모드: 모든 슬라이드 body를 WIP로 교체 (cover 제외)
+  document.querySelectorAll('.slide').forEach((sl, idx) => {
+    if (idx === 0) return; // cover 유지
+    let body = sl.querySelector('.slide-body');
+    if (!body) return;
+
+    if (l === 'en') {
+      // 원본 숨기고 en-wip 표시
+      body.style.display = 'none';
+      let wip = sl.querySelector('.en-wip');
+      if (!wip) {
+        wip = document.createElement('div');
+        wip.className = 'en-wip wip-full';
+        wip.innerHTML = `<div class="wip-icon">🌐</div>
+          <div class="wip-text">준비 중입니다</div>
+          <div class="wip-sub">English version coming soon</div>`;
+        sl.appendChild(wip);
+      }
+      wip.style.display = 'flex';
+    } else {
+      body.style.display = '';
+      const wip = sl.querySelector('.en-wip');
+      if (wip) wip.style.display = 'none';
+    }
+  });
+}
+
+function prev() { goTo(cur - 1); }
+function next() { goTo(cur + 1); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next();
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   prev();
+});
+</script>
+</body>
+</html>
